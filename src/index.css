@@ -49,11 +49,11 @@ body {
 }
 
 
-a {
+#coming-soon-a {
   text-decoration: none;
 }
 
-p {
+#coming-soon {
   margin: 0;
   font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: bold;
@@ -63,7 +63,7 @@ p {
   transition: transform 0.2s ease;
 }
 
-p:hover {
+#coming-soon:hover {
   transform: scale(1.05);
 }
 
