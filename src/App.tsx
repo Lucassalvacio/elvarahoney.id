@@ -12,6 +12,9 @@ export default function App() {
   return (
     <div className="font-body">
       <Header />
+      <a href="https://shopee.co.id/elvarahoney">
+        <p>Coming Soon</p>
+      </a>
       <Hero />
       <SectionDivider />
       <MissionVision />
