@@ -1,4 +1,4 @@
-// Single source of truth for brand contact details and nav links.
+// Single source of truth for brand contact details and nav links (route paths).
 // Update here — everywhere on the page that references these updates with it.
 
 export const CONTACT = {
@@ -12,9 +12,10 @@ export const CONTACT = {
 };
 
 export const NAV_LINKS = [
-  { label: "Misi & Visi", href: "#misi-visi" },
-  { label: "Sumber Madu", href: "#sourcing" },
-  { label: "Kepercayaan", href: "#kepercayaan" },
-  { label: "Koleksi", href: "#koleksi" },
-  { label: "Kontak", href: "#kontak" },
+  { label: "Beranda", href: "/" },
+  { label: "Misi & Visi", href: "/misi-visi" },
+  { label: "Sumber Madu", href: "/sumber-madu" },
+  { label: "Kepercayaan", href: "/kepercayaan" },
+  { label: "Koleksi", href: "/koleksi" },
+  { label: "Kontak", href: "/kontak" },
 ];

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { CONTACT } from "../constants/brand";
 import { Hexagon } from "./Shared";
 
@@ -32,12 +33,12 @@ export function Hero() {
             >
               Belanja di Shopee
             </a>
-            <a
-              href="#sourcing"
+            <Link
+              to="/sumber-madu"
               className="inline-flex items-center px-7 py-3.5 rounded-full border border-brown/40 text-brown font-body text-sm tracking-wide hover:border-brown transition-colors"
             >
               Kenali Sumbernya
-            </a>
+            </Link>
           </div>
         </div>
 

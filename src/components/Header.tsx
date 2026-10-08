@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { CONTACT, NAV_LINKS } from "../constants/brand";
 
 export function Header() {
@@ -7,21 +8,24 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-brown/10">
       <div className="max-w-6xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <span className="font-display text-2xl md:text-3xl font-semibold text-brown tracking-wide">
             ELVARA
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-8 font-body text-sm tracking-wide text-brown-deep">
           {NAV_LINKS.map((link) => (
-            <a
+            <NavLink
               key={link.href}
-              href={link.href}
-              className="hover:text-gold transition-colors"
+              to={link.href}
+              end
+              className={({ isActive }) =>
+                `hover:text-gold transition-colors ${isActive ? "text-gold" : ""}`
+              }
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
@@ -63,14 +67,15 @@ export function Header() {
       {open && (
         <div className="md:hidden border-t border-brown/10 bg-cream px-6 py-4 flex flex-col gap-4 font-body text-brown-deep">
           {NAV_LINKS.map((link) => (
-            <a
+            <NavLink
               key={link.href}
-              href={link.href}
+              to={link.href}
+              end
               onClick={() => setOpen(false)}
               className="py-1"
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
           <a
             href={CONTACT.whatsappHref}
