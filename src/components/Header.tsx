@@ -43,7 +43,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 font-body text-sm tracking-wide text-brown-deep">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-8 font-body text-sm tracking-wide text-brown-deep">
           {NAV_LINKS.map((link) => (
             <NavLink
               key={link.href}
@@ -61,20 +61,28 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           <CartButton />
           <a
             href={CONTACT.whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-5 py-2.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
+            className="inline-flex shrink-0 items-center whitespace-nowrap px-5 py-2.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
           >
             Hubungi via WhatsApp
           </a>
         </div>
 
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-4 lg:hidden">
           <CartButton />
+          <a
+            href={CONTACT.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex shrink-0 items-center whitespace-nowrap px-3 py-2 rounded-full bg-brown text-cream font-body text-xs tracking-wide hover:bg-brown-deep transition-colors"
+          >
+            Hubungi via WhatsApp
+          </a>
           <button
             className="text-brown"
             aria-label={open ? "Tutup menu" : "Buka menu"}
@@ -103,7 +111,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-brown/10 bg-cream px-6 py-4 flex flex-col gap-4 font-body text-brown-deep">
+        <div className="lg:hidden border-t border-brown/10 bg-cream px-6 py-4 flex flex-col gap-4 font-body text-brown-deep">
           {NAV_LINKS.map((link) => (
             <NavLink
               key={link.href}
