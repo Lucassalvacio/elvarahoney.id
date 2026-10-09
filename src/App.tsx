@@ -1,14 +1,21 @@
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Header } from "./components/Header";
-import { Hero } from "./components/Hero";
-import { MissionVision } from "./components/MissionVision";
-import { Sourcing } from "./components/Sourcing";
-import { Trust } from "./components/Trust";
-import { Products } from "./components/Products";
-import { Contact } from "./components/Contact";
-import { SectionDivider } from "./components/Shared";
-import ReviewMarquee from "./components/ReviewMarquee";
+import Home from "./pages/Home";
+import MissionVision from "./pages/MissionVision";
+import Sourcing from "./pages/Sourcing";
+import Trust from "./pages/Trust";
+import Products from "./pages/Products";
+import Contact from "./pages/Contact";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 import { CartProvider } from "./context/CartContext";
 import { CartDrawer } from "./components/shop/CartDrawer";
 import { Shop } from "./pages/Shop";
@@ -42,46 +49,20 @@ function ScrollManager() {
 
 function Home() {
   return (
-    <>
-      <a href="https://shopee.co.id/elvarahoney" id="coming-soon-a">
-        <p id="coming-soon">Coming Soon</p>
-      </a>
-      <Hero />
-      <SectionDivider />
-      <MissionVision />
-      <Sourcing />
-      <Trust />
-      <Products />
-      <ReviewMarquee />
-      <Contact />
-    </>
-  );
-}
-
-export default function App() {
-  return (
-    <CartProvider>
-      <BrowserRouter>
-        <div className="font-body">
-          <ScrollManager />
-          {IS_TEST_SITE && (
-            <div
-              role="status"
-              className="bg-brown px-4 py-2 text-center text-xs tracking-wide text-cream sm:text-sm"
-            >
-              SITUS UJI COBA — Pemesanan belum tersedia. Jangan gunakan data
-              pribadi atau melakukan pembayaran.
-            </div>
-          )}
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/toko" element={<Shop />} />
-            <Route path="/checkout" element={<Checkout />} />
-          </Routes>
-          <CartDrawer />
-        </div>
-      </BrowserRouter>
-    </CartProvider>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="font-body">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/misi-visi" element={<MissionVision />} />
+          <Route path="/sumber-madu" element={<Sourcing />} />
+          <Route path="/kepercayaan" element={<Trust />} />
+          <Route path="/koleksi" element={<Products />} />
+          <Route path="/kontak" element={<Contact />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }

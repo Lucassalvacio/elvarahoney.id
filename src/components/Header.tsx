@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CONTACT, NAV_LINKS } from "../constants/brand";
 import { useCart } from "../context/CartContext";
 
@@ -45,13 +45,16 @@ export function Header() {
 
         <nav className="hidden md:flex items-center gap-8 font-body text-sm tracking-wide text-brown-deep">
           {NAV_LINKS.map((link) => (
-            <Link
+            <NavLink
               key={link.href}
-              to={`/${link.href}`}
-              className="hover:text-gold transition-colors"
+              to={link.href}
+              end
+              className={({ isActive }) =>
+                `hover:text-gold transition-colors ${isActive ? "text-gold" : ""}`
+              }
             >
               {link.label}
-            </Link>
+            </NavLink>
           ))}
           <Link to="/toko" className="hover:text-gold transition-colors">
             Toko
@@ -102,14 +105,15 @@ export function Header() {
       {open && (
         <div className="md:hidden border-t border-brown/10 bg-cream px-6 py-4 flex flex-col gap-4 font-body text-brown-deep">
           {NAV_LINKS.map((link) => (
-            <Link
+            <NavLink
               key={link.href}
-              to={`/${link.href}`}
+              to={link.href}
+              end
               onClick={() => setOpen(false)}
               className="py-1"
             >
               {link.label}
-            </Link>
+            </NavLink>
           ))}
           <Link to="/toko" onClick={() => setOpen(false)} className="py-1">
             Toko
