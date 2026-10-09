@@ -74,4 +74,10 @@ Any static host works (Vercel, Netlify, Firebase Hosting). Build with:
 npm run build
 ```
 
-This outputs a static `dist/` folder.
+This outputs a static `dist/` folder. Builds default to test mode: the site
+shows a test banner, shipping rates are simulated, and order confirmation is
+disabled. Use dummy customer details while testing.
+
+Do not set `VITE_SITE_MODE=live` until the shipping endpoint is configured
+with real credentials and a payment/order flow is ready. Live mode hides the
+test banner, enables WhatsApp order confirmation, and calls the shipping API.

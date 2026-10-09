@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { CONTACT } from "../constants/brand";
 import { Eyebrow } from "./Shared";
 import placeholderImg from "../assets/placeholder-product.svg";
@@ -22,8 +23,8 @@ export function Products() {
             Untuk Sehari-hari, Untuk Sesekali Istimewa
           </h2>
           <p className="font-body text-brown-deep/80 leading-relaxed">
-            Semua produk Elvara tersedia eksklusif melalui Shopee — kami
-            menjaga kualitas dengan tidak menyebar ke banyak kanal.
+            Belanja langsung di sini, atau lewat Shopee — kami menjaga
+            kualitas dengan tidak menyebar ke banyak kanal.
           </p>
         </div>
 
@@ -84,12 +85,18 @@ export function Products() {
           </div>
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 flex flex-wrap justify-center gap-4">
+          <Link
+            to="/toko"
+            className="inline-flex items-center px-8 py-3.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
+          >
+            Belanja di Sini →
+          </Link>
           <a
             href={CONTACT.shopeeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-3.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
+            className="inline-flex items-center px-8 py-3.5 rounded-full border border-brown/40 text-brown font-body text-sm tracking-wide hover:border-brown transition-colors"
           >
             Belanja di Shopee →
           </a>
