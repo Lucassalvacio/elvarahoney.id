@@ -62,6 +62,7 @@ export default function App() {
             <Route path="/kepercayaan" element={<Trust />} />
             <Route path="/koleksi" element={<Products />} />
             <Route path="/kontak" element={<Contact />} />
+            <Route path="/toko" element={<Shop />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<Navigate to="/" replace />} />
