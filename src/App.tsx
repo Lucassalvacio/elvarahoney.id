@@ -50,8 +50,8 @@ export default function App() {
               role="status"
               className="bg-brown px-4 py-2 text-center text-xs tracking-wide text-cream sm:text-sm"
             >
-              SITUS UJI COBA — Pemesanan belum tersedia. Jangan gunakan data
-              pribadi atau melakukan pembayaran.
+              CHECKOUT SITUS NONAKTIF — Pesan melalui Shopee atau WhatsApp resmi.
+              Jangan masukkan data pribadi atau membayar melalui checkout situs.
             </div>
           )}
           <Header />
@@ -67,7 +67,7 @@ export default function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-          <CartDrawer />
+          {!IS_TEST_SITE && <CartDrawer />}
         </div>
       </CartProvider>
     </BrowserRouter>

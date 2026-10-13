@@ -7,6 +7,7 @@
 - Added the provided product prices and package contents to the collection page; added Shopee and WhatsApp inquiry links.
 - Displayed the provided NKV number, lab certificate number, moisture result and test method, and other reported microbiological results; linked to the supplied document images.
 - Updated sourcing details from owner-provided information: local harvesters, eucalyptus forest, raw/wild honey, no heating, and no additives.
+- Improved the Toko buying path with visible variant prices, hamper contents, category filter state and product count, prominent Shopee access, and prefilled WhatsApp product inquiries; hid the inactive test-mode cart/checkout entry point.
 
 ## Priorities
 
@@ -18,7 +19,7 @@
 | P1 | No stock disclosure | Keep stock quantities off the public product pages until approved for publication. | Owner confirmed no stock information should be added yet. |
 | P2 | Confirmed | Prices and WhatsApp contact. | Owner confirmed current listed prices and WhatsApp number; configured link uses +62 851 2133 0313. |
 | P2 | Needs technical review | Verify production indexability, canonical URL, sitemap, robots directives, and rendered metadata. | The repository has no sitemap or robots file; live-site access and deployment settings were unavailable during this audit. |
-| P2 | Keep in test mode | Reassess the internal cart and direct checkout before activation. | Checkout is explicitly disabled by default and shipping rates are simulated. Do not enable until shipping, order handling, payment terms, and operational costs are confirmed. |
+| P2 | Keep in test mode | Reassess the internal cart and direct checkout before activation. | Checkout is explicitly disabled by default and shipping rates are simulated. The cart remains available only outside test mode; do not enable until shipping, order handling, payment terms, and operational costs are confirmed. |
 | P3 | Needs owner approval | Restore selected customer reviews only with provenance and permission. | The removed excerpts were not independently verifiable and included health-related claims. |
 
 ## Audit notes

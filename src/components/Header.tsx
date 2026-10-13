@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { CONTACT, NAV_LINKS } from "../constants/brand";
 import { useCart } from "../context/CartContext";
+import { IS_TEST_SITE } from "../constants/siteMode";
 
 function CartButton() {
   const { totalItems, openCart } = useCart();
@@ -62,7 +63,7 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-6">
-          <CartButton />
+          {!IS_TEST_SITE && <CartButton />}
           <a
             href={CONTACT.whatsappHref}
             target="_blank"
@@ -74,7 +75,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4 lg:hidden">
-          <CartButton />
+          {!IS_TEST_SITE && <CartButton />}
           <a
             href={CONTACT.whatsappHref}
             target="_blank"

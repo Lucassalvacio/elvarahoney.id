@@ -1,5 +1,7 @@
 import type { Product, ProductVariant } from "../../types/product";
 import { formatIDR } from "../../lib/format";
+import { CONTACT } from "../../constants/brand";
+import { IS_TEST_SITE } from "../../constants/siteMode";
 
 function InfoList({ title, items }: { title: string; items: string[] }) {
   return (
@@ -38,6 +40,11 @@ export function ProductModal({
   const variant =
     product.variants.find((v) => v.id === variantId) ?? product.variants[0];
   const outOfStock = !variant || variant.stock <= 0;
+  const whatsappHref = variant
+    ? `${CONTACT.whatsappHref}?text=${encodeURIComponent(
+        `Halo Elvara, saya ingin bertanya/memesan:\n${product.name} (${variant.label}) x1 — ${formatIDR(variant.price)}`
+      )}`
+    : CONTACT.whatsappHref;
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
@@ -131,7 +138,7 @@ export function ProductModal({
             </p>
           )}
 
-          <div className="flex items-center justify-between gap-4 pt-4 mt-2 border-t border-brown/10">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 mt-2 border-t border-brown/10">
             <div>
               <p className="font-display text-xl text-brown font-semibold">
                 {variant ? formatIDR(variant.price) : "—"}
@@ -140,14 +147,29 @@ export function ProductModal({
                 <p className="font-body text-xs text-brown-deep/50">Habis</p>
               )}
             </div>
-            <button
-              type="button"
-              disabled={outOfStock}
-              onClick={() => variant && onAddToCart(variant)}
-              className="inline-flex items-center px-6 py-3 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-brown"
-            >
-              + Keranjang
-            </button>
+            {IS_TEST_SITE ? (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-disabled={outOfStock}
+                onClick={(event) => outOfStock && event.preventDefault()}
+                className={`inline-flex items-center justify-center px-6 py-3 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep ${
+                  outOfStock ? "pointer-events-none opacity-40" : ""
+                }`}
+              >
+                Pesan via WhatsApp
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled={outOfStock}
+                onClick={() => variant && onAddToCart(variant)}
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-brown"
+              >
+                + Keranjang
+              </button>
+            )}
           </div>
         </div>
       </div>
