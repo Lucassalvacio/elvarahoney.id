@@ -17,14 +17,6 @@ export function Trust() {
 
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="bg-cream-light border border-brown/15 rounded-2xl p-8">
-            <div
-              className="w-16 aspect-[1.1547/1] mb-5 flex items-center justify-center"
-              style={{ ...HEX_CLIP, background: "#592A0D" }}
-            >
-              <span className="text-cream font-display font-bold text-sm">
-                NKV
-              </span>
-            </div>
             <h3 className="font-display text-xl text-brown font-semibold mb-2">
               Nomor Kontrol Veteriner
             </h3>
@@ -32,14 +24,14 @@ export function Trust() {
               NKV untuk usaha penanganan atau pengolahan madu:{" "}
               <strong>UPM-360328-0008</strong>.
             </p>
-            <a
-              href="https://github.com/user-attachments/assets/751f6d64-24f5-4b80-9304-14ba71c6d098"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-4 font-body text-sm underline underline-offset-4"
-            >
-              Lihat dokumen NKV
-            </a>
+            <figure className="mt-5 overflow-hidden rounded-xl border border-brown/15 bg-white p-2">
+              <img
+                src="https://github.com/user-attachments/assets/ab1e0dc6-cccd-4a15-a7a0-b5cc1540fa60"
+                alt="Sertifikat Nomor Kontrol Veteriner Elvara, UPM-360328-0008"
+                loading="lazy"
+                className="mx-auto block max-h-[28rem] w-full object-contain"
+              />
+            </figure>
           </div>
 
           <div className="bg-cream-light border border-brown/15 rounded-2xl p-8">
