@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Hero } from "../components/Hero";
 import { SectionDivider } from "../components/Shared";
-import ReviewMarquee from "../components/ReviewMarquee";
 
 const HIGHLIGHTS = [
   { to: "/misi-visi", label: "Misi & Visi", text: "Apa yang kami perjuangkan." },
@@ -13,9 +12,6 @@ const HIGHLIGHTS = [
 export default function Home() {
   return (
     <>
-      <a href="https://shopee.co.id/elvarahoney" id="coming-soon-a">
-        <p id="coming-soon">Coming Soon</p>
-      </a>
       <Hero />
       <SectionDivider />
       <section className="bg-cream">
@@ -34,7 +30,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <ReviewMarquee />
     </>
   );
 }

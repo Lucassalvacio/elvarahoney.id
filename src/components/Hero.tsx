@@ -15,14 +15,13 @@ export function Hero() {
             From Hive to Healing
           </p>
           <h1 className="font-display text-4xl md:text-6xl leading-[1.08] text-brown font-semibold">
-            Madu Hutan Murni,
+            Madu Hutan Eukaliptus,
             <br />
-            Dari Hutan ke Penyembuhan
+            Asal Nusa Tenggara Timur
           </h1>
           <p className="font-body text-base md:text-lg text-brown-deep/85 mt-6 max-w-md leading-relaxed">
-            Elvara menghadirkan madu hutan eukaliptus asli Nusa Tenggara
-            Timur. dipanen dengan cara tradisional, tanpa campuran apa pun,
-            untuk mendukung kesehatan pencernaan Anda secara alami.
+            Elvara menghadirkan madu hutan eukaliptus mentah dari Nusa Tenggara
+            Timur, tanpa pemanasan, bahan tambahan, atau pencampuran.
           </p>
           <div className="flex flex-wrap gap-4 mt-9">
             <a

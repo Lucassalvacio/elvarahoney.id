@@ -7,22 +7,16 @@ export function Sourcing() {
         <div className="order-2 md:order-1">
           <Eyebrow>Dari Hutan NTT</Eyebrow>
           <h2 className="font-display text-3xl md:text-4xl font-semibold mb-6 leading-tight">
-            Dipanen dengan Hormat,
-            <br /> Bukan Diserobot
+            Mengenal Asal Madu Elvara
           </h2>
           <p className="font-body text-cream/85 leading-relaxed mb-5">
-            Elvara bermitra dengan komunitas lokal di hutan eukaliptus Nusa
-            Tenggara Timur, yang memanen madu dengan metode tradisional
-            turun-temurun.
+            Madu Elvara berasal dari hutan eukaliptus di Nusa Tenggara Timur
+            dan diperoleh dari pengumpul lokal.
           </p>
           <p className="font-body text-cream/85 leading-relaxed mb-5">
-            Setiap panen dilakukan secukupnya. cukup untuk kami, dan cukup
-            tersisa agar koloni lebah tetap tumbuh serta hutan tetap lestari.
-          </p>
-          <p className="font-body text-cream/85 leading-relaxed">
-            Mitra petani kami dibayar secara adil, dan sebagian hasil kerja
-            sama ini turut mendukung akses pendidikan bagi anak-anak di
-            wilayah pedesaan.
+            Kami belum mencantumkan rincian praktik panen dan rantai pasok.
+            Informasi tersebut perlu diverifikasi sebelum kami membuat klaim
+            lebih lanjut.
           </p>
         </div>
         <div className="order-1 md:order-2 relative mx-auto w-56 h-56 md:w-80 md:h-80">

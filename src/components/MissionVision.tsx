@@ -6,8 +6,8 @@ const PILLARS = [
     body: "Menyajikan madu hutan 100% murni tanpa bahan dan pengolahan tambahan.",
   },
   {
-    title: "Kesehatan",
-    body: "Mendorong masyarakat untuk menjaga kesehatan pencernaan secara alami.",
+    title: "Informasi yang Jelas",
+    body: "Menyampaikan informasi produk dan asal madu secara terbuka, tanpa klaim manfaat kesehatan yang belum terverifikasi.",
   },
   {
     title: "Transparansi",
@@ -52,9 +52,8 @@ export function MissionVision() {
               <span className="text-gold-light">Visi Kami</span>
             </Eyebrow>
             <p className="font-display text-2xl md:text-[1.7rem] leading-snug italic">
-              &ldquo;Menjadi sumber madu murni premium terpercaya di
-              Indonesia yang menginspirasi gaya hidup sehat dan mendukung
-              petani lokal.&rdquo;
+              &ldquo;Menjadi sumber madu hutan premium yang terpercaya melalui
+              produk dan informasi yang transparan.&rdquo;
             </p>
           </div>
         </div>

@@ -29,8 +29,8 @@ export function Trust() {
               Nomor Kontrol Veteriner
             </h3>
             <p className="font-body text-brown-deep/80 leading-relaxed text-sm">
-              Produk Elvara diawasi di bawah standar kendali mutu resmi untuk
-              produk berbasis hewani, dari sumber hingga pengemasan.
+              Elvara memiliki sertifikat NKV. Rincian nomor dan ruang lingkup
+              sertifikat tidak dicantumkan di halaman ini.
             </p>
           </div>
 
@@ -40,21 +40,21 @@ export function Trust() {
               style={{ ...HEX_CLIP, background: "#D9A441" }}
             >
               <span className="text-brown font-display font-bold text-xs text-center leading-tight">
-                Halal
+                Uji
                 <br />
-                Friendly
+                Lab
               </span>
             </div>
             <h3 className="font-display text-xl text-brown font-semibold mb-2">
-              Halal Friendly*
+              Hasil Uji Laboratorium
             </h3>
             <p className="font-body text-brown-deep/80 leading-relaxed text-sm">
-              Dibuat dari bahan dan melalui proses yang mengikuti prinsip
-              halal.
+              Hasil pengujian yang tersedia melaporkan Coliform 0, TPC 0, serta
+              hasil negatif untuk khamir dan kapang.
             </p>
             <p className="font-body text-brown-deep/50 leading-relaxed text-xs mt-3 italic">
-              *Belum merupakan sertifikasi halal resmi MUI. Kami memilih
-              transparan soal ini sesuai komitmen kami kepada Anda.
+              Rincian tanggal pengujian dan identitas laboratorium belum
+              dicantumkan.
             </p>
           </div>
         </div>
