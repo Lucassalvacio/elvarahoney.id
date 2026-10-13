@@ -1,11 +1,5 @@
 import type { Product, ProductVariant } from "../../types/product";
 import { formatIDR } from "../../lib/format";
-import {
-  HONEY_CHARACTERISTICS,
-  STORAGE_NOTES,
-  SHIPPING_SCHEDULE,
-  RETURN_POLICY,
-} from "../../data/productInfo";
 
 function InfoList({ title, items }: { title: string; items: string[] }) {
   return (
@@ -136,11 +130,6 @@ export function ProductModal({
               {variant.weightGrams}gr
             </p>
           )}
-
-          <InfoList title="Tentang Madu Hutan" items={HONEY_CHARACTERISTICS} />
-          <InfoList title="Cara Penyimpanan" items={STORAGE_NOTES} />
-          <InfoList title="Jadwal Pengiriman" items={SHIPPING_SCHEDULE} />
-          <InfoList title="Pengembalian & Penukaran" items={RETURN_POLICY} />
 
           <div className="flex items-center justify-between gap-4 pt-4 mt-2 border-t border-brown/10">
             <div>

@@ -28,45 +28,6 @@ body {
   }
 }
 
-
-/* MARQUUUUEEE */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-
-#coming-soon-a {
-  text-decoration: none;
-}
-
-#coming-soon {
-  margin: 0;
-  font-size: clamp(2.5rem, 8vw, 5rem);
-  font-weight: bold;
-  color: #592a0d;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-#coming-soon:hover {
-  transform: scale(1.05);
-}
-
 /* Themed scrollbar for scrollable panels (product modal, cart drawer) —
    replaces the default OS scrollbar with something that matches the brand. */
 .themed-scrollbar {

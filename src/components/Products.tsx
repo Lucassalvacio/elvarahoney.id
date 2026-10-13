@@ -1,17 +1,7 @@
-import { Link } from "react-router-dom";
 import { CONTACT } from "../constants/brand";
 import { Eyebrow } from "./Shared";
-import placeholderImg from "../assets/placeholder-product.svg";
-
-const BOTTLES = ["125gr", "250gr", "500gr"];
-const HAMPERS = [
-  { name: "Daily Ritual", note: "Untuk kebiasaan sehat harian" },
-  { name: "Tea Ritual", note: "Madu, dipasangkan dengan teh pilihan" },
-  {
-    name: "Heritage Duo",
-    note: "2× botol 700gr + sendok kayu — hadiah istimewa",
-  },
-];
+import { PRODUCTS } from "../data/products";
+import { formatIDR } from "../lib/format";
 
 export function Products() {
   return (
@@ -23,75 +13,53 @@ export function Products() {
             Untuk Sehari-hari, Untuk Sesekali Istimewa
           </h2>
           <p className="font-body text-brown-deep/80 leading-relaxed">
-            Belanja langsung di sini, atau lewat Shopee — kami menjaga
-            kualitas dengan tidak menyebar ke banyak kanal.
+            Madu hutan tanpa pemanasan, bahan tambahan, atau pencampuran.
+            Lihat ukuran, isi paket, dan harga sebelum memilih kanal pembelian.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-cream-light border border-brown/15 rounded-2xl overflow-hidden">
-            <div className="h-56">
-              <img
-                src={placeholderImg}
-                alt="Ez Squeeze Bottle — foto produk placeholder"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {PRODUCTS.map((product) => (
+            <article
+              key={product.id}
+              className="bg-cream-light border border-brown/15 rounded-2xl p-6"
+            >
               <h3 className="font-display text-2xl text-brown font-semibold mb-2">
-                Ez Squeeze Bottle
+                {product.name}
               </h3>
-              <p className="font-body text-brown-deep/80 text-sm mb-4">
-                Madu murni harian, dalam genggaman.
+              <p className="font-body text-brown-deep/80 text-sm mb-5">
+                {product.shortDescription}
               </p>
-              <div className="flex gap-2">
-                {BOTTLES.map((size) => (
-                  <span
-                    key={size}
-                    className="font-body text-xs tracking-wide px-3 py-1.5 rounded-full border border-brown/30 text-brown"
+              {product.contents && (
+                <ul className="space-y-1 mb-5">
+                  {product.contents.map((item) => (
+                    <li
+                      key={item}
+                      className="font-body text-sm text-brown-deep/80"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <ul className="space-y-2 border-t border-brown/10 pt-4">
+                {product.variants.map((variant) => (
+                  <li
+                    key={variant.id}
+                    className="flex justify-between gap-3 font-body text-sm"
                   >
-                    {size}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-cream-light border border-brown/15 rounded-2xl overflow-hidden">
-            <div className="h-56">
-              <img
-                src={placeholderImg}
-                alt="Hampers Elvara — foto produk placeholder"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-8">
-              <h3 className="font-display text-2xl text-brown font-semibold mb-4">
-                Hampers
-              </h3>
-              <ul className="space-y-3">
-                {HAMPERS.map((h) => (
-                  <li key={h.name} className="flex justify-between gap-4">
-                    <span className="font-body text-sm text-brown font-medium">
-                      {h.name}
-                    </span>
-                    <span className="font-body text-xs text-brown-deep/60 text-right">
-                      {h.note}
+                    <span className="text-brown">{variant.label}</span>
+                    <span className="font-semibold text-brown">
+                      {formatIDR(variant.price)}
                     </span>
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
+            </article>
+          ))}
         </div>
 
         <div className="text-center mt-12 flex flex-wrap justify-center gap-4">
-          <Link
-            to="/toko"
-            className="inline-flex items-center px-8 py-3.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
-          >
-            Belanja di Sini →
-          </Link>
           <a
             href={CONTACT.shopeeHref}
             target="_blank"
@@ -99,6 +67,14 @@ export function Products() {
             className="inline-flex items-center px-8 py-3.5 rounded-full border border-brown/40 text-brown font-body text-sm tracking-wide hover:border-brown transition-colors"
           >
             Belanja di Shopee →
+          </a>
+          <a
+            href={`${CONTACT.whatsappHref}?text=${encodeURIComponent("Halo Elvara, saya ingin bertanya tentang produk dan harga.")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-8 py-3.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
+          >
+            Tanya via WhatsApp →
           </a>
         </div>
       </div>

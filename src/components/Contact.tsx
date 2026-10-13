@@ -22,8 +22,8 @@ export function Contact() {
             Pastikan Langsung dari Sumbernya
           </h2>
           <p className="font-body text-cream/75 leading-relaxed">
-            Kami hanya berjualan resmi di Shopee. Hubungi kami langsung untuk
-            memverifikasi keaslian produk atau bertanya seputar Elvara.
+            Pilih Shopee untuk berbelanja atau hubungi kami melalui WhatsApp
+            untuk bertanya seputar produk Elvara.
           </p>
         </div>
 
