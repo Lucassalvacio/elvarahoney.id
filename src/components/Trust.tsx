@@ -29,9 +29,17 @@ export function Trust() {
               Nomor Kontrol Veteriner
             </h3>
             <p className="font-body text-brown-deep/80 leading-relaxed text-sm">
-              Elvara memiliki sertifikat NKV. Rincian nomor dan ruang lingkup
-              sertifikat tidak dicantumkan di halaman ini.
+              NKV untuk usaha penanganan atau pengolahan madu:{" "}
+              <strong>UPM-360328-0008</strong>.
             </p>
+            <a
+              href="https://github.com/user-attachments/assets/751f6d64-24f5-4b80-9304-14ba71c6d098"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 font-body text-sm underline underline-offset-4"
+            >
+              Lihat dokumen NKV
+            </a>
           </div>
 
           <div className="bg-cream-light border border-brown/15 rounded-2xl p-8">
@@ -49,13 +57,23 @@ export function Trust() {
               Hasil Uji Laboratorium
             </h3>
             <p className="font-body text-brown-deep/80 leading-relaxed text-sm">
-              Hasil pengujian yang tersedia melaporkan Coliform 0, TPC 0, serta
-              hasil negatif untuk khamir dan kapang.
+              Nomor sertifikat: <strong>SIG.LHP.IX.2025.181732511</strong>.
+              Kadar air tercatat <strong>21,97%</strong> dengan metode AOAC
+              969.38B, 2005. Hasil lain yang tersedia melaporkan Coliform 0,
+              TPC 0, serta khamir dan kapang negatif.
             </p>
             <p className="font-body text-brown-deep/50 leading-relaxed text-xs mt-3 italic">
-              Rincian tanggal pengujian dan identitas laboratorium belum
-              dicantumkan.
+              Hasil ini terbatas pada parameter yang disebutkan dan bukan
+              klaim manfaat kesehatan.
             </p>
+            <a
+              href="https://github.com/user-attachments/assets/b349e214-5111-4bfb-9e56-b709c5357a32"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 font-body text-sm underline underline-offset-4"
+            >
+              Lihat cuplikan hasil uji
+            </a>
           </div>
         </div>
       </div>

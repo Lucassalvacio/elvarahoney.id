@@ -11,12 +11,11 @@ export function Sourcing() {
           </h2>
           <p className="font-body text-cream/85 leading-relaxed mb-5">
             Madu Elvara berasal dari hutan eukaliptus di Nusa Tenggara Timur
-            dan diperoleh dari pengumpul lokal.
+            melalui pengumpul lokal.
           </p>
           <p className="font-body text-cream/85 leading-relaxed mb-5">
-            Kami belum mencantumkan rincian praktik panen dan rantai pasok.
-            Informasi tersebut perlu diverifikasi sebelum kami membuat klaim
-            lebih lanjut.
+            Ini adalah madu hutan liar (raw &amp; wild honey) yang tidak
+            dipanaskan dan tidak diberi bahan tambahan.
           </p>
         </div>
         <div className="order-1 md:order-2 relative mx-auto w-56 h-56 md:w-80 md:h-80">
