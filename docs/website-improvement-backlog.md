@@ -12,6 +12,7 @@
 | Priority | Status | Improvement | Rationale / dependency |
 | --- | --- | --- | --- |
 | P1 | Needs owner documents | Publish approved NKV certificate and laboratory-report details. | Confirm the certificate number and scope, plus test dates and laboratory identity; link or show documents only after approval. |
+| P1 | Follow-up | Review remaining development-tool dependency advisories. | `npm audit` reports 14 remaining development dependency advisories (10 high, 4 moderate); fixes for Vite and Tailwind require major upgrades. Production dependencies currently audit clean. |
 | P1 | Needs owner confirmation | Document sourcing and harvesting details. | Confirm collector relationships, locations, and harvest/processing practices before adding specific claims. |
 | P1 | Needs owner assets | Replace generic placeholder illustrations with current product and packaging photographs. | Use approved, accurate images and confirm that packaging matches the listed sizes and hamper contents. |
 | P1 | Needs owner confirmation | Verify live prices, stock, and active WhatsApp business number. | The site contains catalog stock values and a stored number; confirm these before relying on them for orders. |
