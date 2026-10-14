@@ -2,8 +2,8 @@ import { Eyebrow, Hexagon } from "./Shared";
 
 export function Sourcing() {
   return (
-    <section id="sourcing" className="bg-forest text-cream">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-14 items-center">
+    <section id="sourcing" className="mt-8 md:mt-10 bg-forest text-cream">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 md:py-20 grid md:grid-cols-2 gap-14 items-center">
         <div className="order-2 md:order-1">
           <Eyebrow>Dari Hutan NTT</Eyebrow>
           <h2 className="font-display text-3xl md:text-4xl font-semibold mb-6 leading-tight">

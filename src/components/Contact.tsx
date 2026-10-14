@@ -14,8 +14,8 @@ const ITEMS = [
 
 export function Contact() {
   return (
-    <section id="kontak" className="bg-brown text-cream">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-20 md:py-24">
+    <section id="kontak" className="mt-8 md:mt-10 bg-brown text-cream">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 md:py-20">
         <div className="text-center max-w-lg mx-auto mb-14">
           <Eyebrow>Hubungi Kami</Eyebrow>
           <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">

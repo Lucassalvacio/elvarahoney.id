@@ -1,3 +1,4 @@
+import nkvImage from "../assets/nkv-transparent.png";
 import { Eyebrow } from "./Shared";
 
 const HEX_CLIP = {
@@ -17,6 +18,14 @@ export function Trust() {
 
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="bg-cream-light border border-brown/15 rounded-2xl p-8">
+            <div
+              className="w-16 aspect-[1.1547/1] mb-5 flex items-center justify-center"
+              style={{ ...HEX_CLIP, background: "#D9A441" }}
+            >
+              <span className="text-brown font-display font-bold text-xs text-center leading-tight">
+                NKV
+              </span>
+            </div>
             <h3 className="font-display text-xl text-brown font-semibold mb-2">
               Nomor Kontrol Veteriner
             </h3>
@@ -24,12 +33,12 @@ export function Trust() {
               NKV untuk usaha penanganan atau pengolahan madu:{" "}
               <strong>UPM-360328-0008</strong>.
             </p>
-            <figure className="mt-5 overflow-hidden rounded-xl border border-brown/15 bg-white p-2">
+            <figure className="mt-5 overflow-hidden rounded-xl border border-brown/15 p-2">
               <img
-                src="https://github.com/user-attachments/assets/ab1e0dc6-cccd-4a15-a7a0-b5cc1540fa60"
+                src={nkvImage}
                 alt="Sertifikat Nomor Kontrol Veteriner Elvara, UPM-360328-0008"
                 loading="lazy"
-                className="mx-auto block max-h-[28rem] w-full object-contain"
+                className="mx-auto block h-auto max-h-64 max-w-full w-auto object-contain"
               />
             </figure>
           </div>
