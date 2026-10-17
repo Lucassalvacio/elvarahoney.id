@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Hero } from "../components/Hero";
+import { Reveal } from "../components/Motion";
 import { SectionDivider } from "../components/Shared";
 
 const HIGHLIGHTS = [
@@ -16,17 +17,18 @@ export default function Home() {
       <SectionDivider />
       <section className="bg-cream">
         <div className="max-w-6xl mx-auto px-6 md:px-10 pb-16 grid sm:grid-cols-2 md:grid-cols-4 gap-5">
-          {HIGHLIGHTS.map((h) => (
+          {HIGHLIGHTS.map((h, i) => (
+            <Reveal key={h.to} delay={i * 90}>
             <Link
-              key={h.to}
               to={h.to}
-              className="border border-brown/20 rounded-2xl p-6 hover:border-gold transition-colors"
+              className="block h-full border border-brown/20 rounded-2xl p-6 hover:border-gold transition-colors"
             >
               <h3 className="font-display text-xl font-semibold text-brown mb-1">
                 {h.label}
               </h3>
               <p className="font-body text-sm text-brown-deep/80">{h.text}</p>
             </Link>
+            </Reveal>
           ))}
         </div>
       </section>

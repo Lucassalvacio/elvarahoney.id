@@ -39,6 +39,17 @@ function ScrollManager() {
   return null;
 }
 
+function RouteFade({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
+  // Enter-only fade: the new route renders immediately, so navigation and
+  // back/forward are never delayed or blocked.
+  return (
+    <div key={pathname} className="route-fade">
+      {children}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -55,6 +66,7 @@ export default function App() {
             </div>
           )}
           <Header />
+          <RouteFade>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/misi-visi" element={<MissionVision />} />
@@ -67,6 +79,7 @@ export default function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </RouteFade>
           {!IS_TEST_SITE && <CartDrawer />}
         </div>
       </CartProvider>

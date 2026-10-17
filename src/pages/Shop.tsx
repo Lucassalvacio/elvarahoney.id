@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PRODUCTS } from "../data/products";
 import { ProductCard } from "../components/shop/ProductCard";
+import { BundleBuilder } from "../components/shop/BundleBuilder";
 import { Eyebrow } from "../components/Shared";
 import { CONTACT } from "../constants/brand";
 import type { ProductCategory } from "../types/product";
@@ -74,6 +75,7 @@ export function Shop() {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+        <BundleBuilder />
       </div>
     </section>
   );
