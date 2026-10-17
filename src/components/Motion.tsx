@@ -164,38 +164,44 @@ export function ReadingProgress({
   );
 }
 
-/** Decorative honeycomb outline that draws itself (stroke-dash). */
+/**
+ * Decorative looping honeycomb. Uses the same hexagon tile as the static
+ * `bg-honeycomb` background (56x100 tile, same path), full-bleed behind content.
+ * Each cell draws, holds, then fades out on a diagonal stagger, forever.
+ */
+const HEX_PATH = "M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z";
+const COLS = 14;
+const ROWS = 8;
+
 export function HoneycombDraw({ className = "" }: { className?: string }) {
-  const hex = (cx: number, cy: number) => {
-    const r = 30;
-    const pts = [0, 1, 2, 3, 4, 5].map((k) => {
-      const a = (Math.PI / 3) * k + Math.PI / 6;
-      return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`;
-    });
-    return `M${pts.join("L")}Z`;
-  };
-  const cells = [
-    [60, 60], [112, 90], [60, 120], [112, 30], [164, 60], [164, 120],
-  ];
+  const cells = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const gold = (r + c) % 4 === 0;
+      cells.push(
+        <path
+          key={`${r}-${c}`}
+          d={HEX_PATH}
+          transform={`translate(${c * 56} ${r * 100})`}
+          pathLength={1}
+          style={{ animationDelay: `${((r + c) * 0.35).toFixed(2)}s` }}
+          stroke={gold ? "#D9A441" : "#592A0D"}
+          strokeOpacity={gold ? 0.6 : 0.3}
+          strokeWidth="1.2"
+        />
+      );
+    }
+  }
   return (
     <svg
       aria-hidden="true"
       focusable="false"
-      viewBox="0 0 224 150"
+      viewBox={`0 0 ${COLS * 56} ${ROWS * 100}`}
+      preserveAspectRatio="xMidYMid slice"
       className={`honeycomb-draw ${className}`}
       fill="none"
     >
-      {cells.map(([x, y], i) => (
-        <path
-          key={i}
-          d={hex(x, y)}
-          pathLength={1}
-          style={{ animationDelay: `${i * MOTION.stagger * 3}ms` }}
-          stroke={i % 3 === 0 ? "#D9A441" : "#592A0D"}
-          strokeOpacity={i % 3 === 0 ? 0.55 : 0.3}
-          strokeWidth="1.2"
-        />
-      ))}
+      {cells}
     </svg>
   );
 }

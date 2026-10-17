@@ -10,6 +10,7 @@ export function Hero() {
         className="absolute inset-0 bg-honeycomb bg-repeat opacity-60 pointer-events-none"
         aria-hidden="true"
       />
+      <HoneycombDraw className="pointer-events-none absolute inset-0 h-full w-full" />
       <div className="relative max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-28 grid md:grid-cols-2 gap-14 items-center">
         <div>
           <p className="font-body text-xs tracking-[0.3em] uppercase text-brown/70 mb-5">
@@ -46,7 +47,6 @@ export function Hero() {
         <div className="relative mx-auto w-64 h-64 md:w-96 md:h-96">
           <div className="absolute -inset-4 md:-inset-6 border border-brown/25 rounded-full" />
           <Hexagon className="w-full h-full " />
-          <HoneycombDraw className="absolute -right-10 -bottom-8 w-32 md:w-44" />
         </div>
       </div>
     </section>

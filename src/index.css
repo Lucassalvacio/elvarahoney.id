@@ -111,9 +111,13 @@ body {
 .honeycomb-draw path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: hex-draw 1.6s var(--motion-ease) forwards;
+  animation: hex-loop 9s ease-in-out infinite;
 }
-@keyframes hex-draw { to { stroke-dashoffset: 0; } }
+@keyframes hex-loop {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  25%, 60% { stroke-dashoffset: 0; opacity: 1; }
+  85%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
 
 /* Ambient botanical sway (transform only) */
 .botanical-sway { transform-origin: 50% 100%; animation: sway 12s ease-in-out infinite alternate; }
@@ -125,6 +129,6 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .js-motion [data-reveal]:not([data-revealed]) { opacity: 1; transform: none; }
-  .honeycomb-draw path { stroke-dashoffset: 0; }
+  .honeycomb-draw path { stroke-dashoffset: 0; animation: none; }
   .botanical-sway, .skeleton { animation: none; }
 }
