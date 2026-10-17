@@ -165,8 +165,7 @@ export function ReadingProgress({
 }
 
 /**
- * Decorative looping honeycomb. Uses the same hexagon tile as the static
- * `bg-honeycomb` background (56x100 tile, same path), full-bleed behind content.
+ * Decorative looping honeycomb. Uses the site's hexagon tile (56x100 tile, same path), full-bleed behind content.
  * Each cell draws, holds, then fades out on a diagonal stagger, forever.
  */
 const HEX_PATH = "M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z";
@@ -174,35 +173,87 @@ const COLS = 14;
 const ROWS = 8;
 
 export function HoneycombDraw({ className = "" }: { className?: string }) {
-  const cells = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      const gold = (r + c) % 4 === 0;
-      cells.push(
-        <path
-          key={`${r}-${c}`}
-          d={HEX_PATH}
-          transform={`translate(${c * 56} ${r * 100})`}
-          pathLength={1}
-          style={{ animationDelay: `${((r + c) * 0.35).toFixed(2)}s` }}
-          stroke={gold ? "#D9A441" : "#592A0D"}
-          strokeOpacity={gold ? 0.35 : 0.18}
-          strokeWidth="0.8"
-        />
-      );
+  const wrap = useRef<HTMLDivElement>(null);
+
+  // Cursor interaction: a brighter copy of the grid is revealed through a
+  // radial mask that follows the mouse. One CSS-variable write per frame.
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el || prefersReducedMotion() || !hasFinePointer()) return;
+    let raf = 0;
+    let x = 0;
+    let y = 0;
+    const apply = () => {
+      raf = 0;
+      el.style.setProperty("--mx", `${x}px`);
+      el.style.setProperty("--my", `${y}px`);
+    };
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      const r = el.getBoundingClientRect();
+      x = e.clientX - r.left;
+      y = e.clientY - r.top;
+      el.setAttribute("data-active", "true");
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    const onLeave = () => el.removeAttribute("data-active");
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onLeave);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  const build = (highlight: boolean) => {
+    const cells = [];
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const gold = (r + c) % 4 === 0;
+        cells.push(
+          <path
+            key={`${r}-${c}`}
+            d={HEX_PATH}
+            transform={`translate(${c * 56} ${r * 100})`}
+            pathLength={1}
+            style={
+              highlight
+                ? undefined
+                : { animationDelay: `${((r + c) * 0.35).toFixed(2)}s` }
+            }
+            stroke={gold ? "#D9A441" : "#592A0D"}
+            strokeOpacity={highlight ? (gold ? 0.9 : 0.5) : gold ? 0.4 : 0.2}
+            strokeWidth={highlight ? 1.5 : 1}
+          />
+        );
+      }
     }
-  }
+    return cells;
+  };
+
+  const svgProps = {
+    "aria-hidden": true,
+    focusable: false,
+    viewBox: `0 0 ${COLS * 56} ${ROWS * 100}`,
+    preserveAspectRatio: "xMidYMid slice",
+    fill: "none",
+    className: "absolute inset-0 h-full w-full",
+  } as const;
+
   return (
-    <svg
+    <div
+      ref={wrap}
       aria-hidden="true"
-      focusable="false"
-      viewBox={`0 0 ${COLS * 56} ${ROWS * 100}`}
-      preserveAspectRatio="xMidYMid slice"
-      className={`honeycomb-draw ${className}`}
-      fill="none"
+      className={`honeycomb-wrap ${className}`}
     >
-      {cells}
-    </svg>
+      <svg {...svgProps} className="honeycomb-draw absolute inset-0 h-full w-full">
+        {build(false)}
+      </svg>
+      <svg {...svgProps} className="honeycomb-glow absolute inset-0 h-full w-full">
+        {build(true)}
+      </svg>
+    </div>
   );
 }
 

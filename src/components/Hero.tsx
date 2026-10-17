@@ -6,11 +6,7 @@ import { HoneycombDraw, KineticHeading, Magnetic } from "./Motion";
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-cream">
-      <div
-        className="absolute inset-0 bg-honeycomb bg-repeat opacity-60 pointer-events-none"
-        aria-hidden="true"
-      />
-      <HoneycombDraw className="pointer-events-none absolute inset-0 h-full w-full opacity-50" />
+      <HoneycombDraw className="pointer-events-none absolute inset-0 h-full w-full" />
       <div className="relative max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-28 grid md:grid-cols-2 gap-14 items-center">
         <div>
           <p className="font-body text-xs tracking-[0.3em] uppercase text-brown/70 mb-5">

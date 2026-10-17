@@ -119,6 +119,14 @@ body {
   85%, 100% { stroke-dashoffset: 0; opacity: 0; }
 }
 
+.honeycomb-glow {
+  opacity: 0;
+  transition: opacity var(--motion-base) ease;
+  -webkit-mask-image: radial-gradient(circle 150px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+  mask-image: radial-gradient(circle 150px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+}
+.honeycomb-wrap[data-active] .honeycomb-glow { opacity: 1; }
+
 /* Ambient botanical sway (transform only) */
 .botanical-sway { transform-origin: 50% 100%; animation: sway 12s ease-in-out infinite alternate; }
 @keyframes sway { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
