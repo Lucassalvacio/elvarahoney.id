@@ -186,8 +186,8 @@ export function HoneycombDraw({ className = "" }: { className?: string }) {
           pathLength={1}
           style={{ animationDelay: `${((r + c) * 0.35).toFixed(2)}s` }}
           stroke={gold ? "#D9A441" : "#592A0D"}
-          strokeOpacity={gold ? 0.6 : 0.3}
-          strokeWidth="1.2"
+          strokeOpacity={gold ? 0.35 : 0.18}
+          strokeWidth="0.8"
         />
       );
     }
