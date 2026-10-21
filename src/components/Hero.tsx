@@ -3,7 +3,7 @@ import { CONTACT } from "../constants/brand";
 import { Hexagon } from "./Shared";
 import { HoneycombDraw, KineticHeading, Magnetic } from "./Motion";
 
-import HeroImg from "../assets/IMG_9464.png";
+import HeroImg from "../assets/250n125wRockyBG.png";
 
 export function Hero() {
   return (

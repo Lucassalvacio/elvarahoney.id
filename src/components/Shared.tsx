@@ -16,7 +16,7 @@ export function Hexagon({ className = "", src = placeholderImg }: { className?: 
         width={400}
         height={346}
         decoding="async"
-        className="w-full h-full object-contain bg-cream-dark"
+        className="w-full h-full object-cover bg-cream-dark"
       />
     </div>
   );
