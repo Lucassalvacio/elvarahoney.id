@@ -201,6 +201,13 @@ const FRAGMENTS = [
   { cx: 690, cy: 420, angle: -25, scale: 1.1 },
   { cx: 330, cy: 470, angle: 8, scale: 0.9 },
   { cx: 120, cy: 700, angle: 30, scale: 0.85 },
+  { cx: 60, cy: 330, angle: 22, scale: 0.9 },
+  { cx: 280, cy: 40, angle: -30, scale: 0.8 },
+  { cx: 40, cy: 520, angle: -18, scale: 0.75 },
+  { cx: 450, cy: 220, angle: 35, scale: 0.7 },
+  { cx: 760, cy: 230, angle: 10, scale: 0.85 },
+  { cx: 450, cy: 30, angle: 15, scale: 0.85 },
+  { cx: 790, cy: 40, angle: -20, scale: 0.9 },
   { cx: 560, cy: 720, angle: -8, scale: 1 },
 ];
 
@@ -260,7 +267,7 @@ export function HoneycombDraw({ className = "" }: { className?: string }) {
                   : { animationDelay: `${((fi * 1.3 + i * 0.4) % 9).toFixed(2)}s` }
               }
               stroke={gold ? "#D9A441" : "#592A0D"}
-              strokeOpacity={highlight ? (gold ? 0.9 : 0.5) : gold ? 0.3 : 0.15}
+              strokeOpacity={highlight ? (gold ? 0.7 : 0.4) : gold ? 0.3 : 0.15}
               strokeWidth={highlight ? 1.5 : 0.8}
             />
           );
