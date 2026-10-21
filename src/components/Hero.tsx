@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { CONTACT } from "../constants/brand";
 import { Hexagon } from "./Shared";
 
-import placeholderImg from "../assets/placeholder-product.svg";
 import testImg from "../assets/test-bottle.png";
 
 export function Hero() {
