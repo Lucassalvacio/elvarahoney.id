@@ -1,42 +1,41 @@
 import { Link } from "react-router-dom";
 import { CONTACT } from "../constants/brand";
 import { Hexagon } from "./Shared";
+import { HoneycombDraw, KineticHeading, Magnetic } from "./Motion";
 
 import testImg from "../assets/test-bottle.png";
 
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-cream">
-      <div
-        className="absolute inset-0 bg-honeycomb bg-repeat opacity-60 pointer-events-none"
-        aria-hidden="true"
-      />
+      <HoneycombDraw className="pointer-events-none absolute inset-0 h-full w-full" />
       <div className="relative max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-28 grid md:grid-cols-2 gap-14 items-center">
         <div>
           <p className="font-body text-xs tracking-[0.3em] uppercase text-brown/70 mb-5">
             From Hive to Healing
           </p>
-          <h1 className="font-display text-4xl md:text-6xl leading-[1.08] text-brown font-semibold">
-            Madu Hutan Eukaliptus,
-            <br />
-            Asal Nusa Tenggara Timur
-          </h1>
+          <KineticHeading
+            className="font-display text-4xl md:text-6xl leading-[1.08] text-brown font-semibold"
+            lines={["Madu Hutan Eukaliptus,", "Asal Nusa Tenggara Timur"]}
+          />
           <p className="font-body text-base md:text-lg text-brown-deep/85 mt-6 max-w-md leading-relaxed">
             Elvara menghadirkan madu hutan eukaliptus mentah dari Nusa Tenggara
             Timur, tanpa pemanasan, bahan tambahan, atau pencampuran.
           </p>
           <div className="flex flex-wrap gap-4 mt-9">
+            <Magnetic>
             <a
               href={CONTACT.shopeeHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-7 py-3.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
+              className="btn inline-flex items-center px-7 py-3.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep"
             >
-              Belanja di Shopee
+              Belanja di Shopee <span aria-hidden="true" className="btn-arrow ml-2">→</span>
             </a>
+            </Magnetic>
             <Link
               to="/sumber-madu"
-              className="inline-flex items-center px-7 py-3.5 rounded-full border border-brown/40 text-brown font-body text-sm tracking-wide hover:border-brown transition-colors"
+              className="btn inline-flex items-center px-7 py-3.5 rounded-full border border-brown/40 text-brown font-body text-sm tracking-wide hover:border-brown"
             >
               Kenali Sumbernya
             </Link>

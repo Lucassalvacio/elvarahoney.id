@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useScrolledPast } from "./Motion";
 import { Link, NavLink } from "react-router-dom";
 import { CONTACT, NAV_LINKS } from "../constants/brand";
 import { useCart } from "../context/CartContext";
@@ -34,9 +35,14 @@ function CartButton() {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const scrolled = useScrolledPast(80);
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-brown/10">
+    <header className={`site-header sticky top-0 z-50 border-b ${
+        scrolled || open
+          ? "bg-cream border-brown/15 shadow-[0_1px_8px_rgba(46,22,8,0.08)]"
+          : "bg-cream/70 border-transparent"
+      }`}>
       <div className="max-w-6xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <span className="font-display text-2xl md:text-3xl font-semibold text-brown tracking-wide">
@@ -68,7 +74,7 @@ export function Header() {
             href={CONTACT.whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center whitespace-nowrap px-5 py-2.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep transition-colors"
+            className="btn inline-flex shrink-0 items-center whitespace-nowrap px-5 py-2.5 rounded-full bg-brown text-cream font-body text-sm tracking-wide hover:bg-brown-deep"
           >
             Hubungi via WhatsApp
           </a>

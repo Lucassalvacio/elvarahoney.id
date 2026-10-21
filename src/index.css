@@ -57,3 +57,86 @@ body {
   width: 0;
   height: 0;
 }
+
+/* ---------- Motion system ---------- */
+:root {
+  --motion-fast: 160ms;
+  --motion-base: 400ms;
+  --motion-slow: 700ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-distance-sm: 12px;
+  --motion-distance-md: 18px;
+  --motion-distance-lg: 24px;
+  --motion-stagger: 90ms;
+}
+
+/* Hidden states only apply once JS has flagged the document (see main.tsx). */
+.js-motion [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translate3d(0, var(--motion-distance-md), 0);
+}
+[data-reveal] {
+  transition: opacity var(--motion-base) var(--motion-ease),
+    transform var(--motion-base) var(--motion-ease);
+}
+
+.kinetic-line {
+  display: block;
+  animation: kinetic-in var(--motion-slow) var(--motion-ease) both;
+}
+@keyframes kinetic-in {
+  from { opacity: 0; transform: translate3d(0, var(--motion-distance-md), 0); }
+  to { opacity: 1; transform: none; }
+}
+
+.route-fade { animation: route-in var(--motion-fast) ease-out both; }
+@keyframes route-in { from { opacity: 0; } to { opacity: 1; } }
+
+.magnetic { transition: transform var(--motion-fast) var(--motion-ease); }
+
+/* Button / link micro-interactions */
+.btn {
+  transition: background-color var(--motion-fast) ease, border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease, transform var(--motion-fast) var(--motion-ease);
+}
+.btn:active { transform: translateY(1px) scale(0.98); }
+.btn:hover { transform: translateY(-1px); }
+.btn-arrow { display: inline-block; transition: transform var(--motion-fast) var(--motion-ease); }
+.btn:hover .btn-arrow, .btn:focus-visible .btn-arrow { transform: translateX(4px); }
+
+/* Header morph: fixed height, only colors/shadow change (no layout jump) */
+.site-header { transition: background-color var(--motion-base) ease, box-shadow var(--motion-base) ease, border-color var(--motion-base) ease; }
+
+/* Generative honeycomb */
+.honeycomb-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hex-loop 9s ease-in-out infinite;
+}
+@keyframes hex-loop {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  25%, 60% { stroke-dashoffset: 0; opacity: 1; }
+  85%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.honeycomb-glow {
+  opacity: 0;
+  transition: opacity var(--motion-base) ease;
+  -webkit-mask-image: radial-gradient(circle 150px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+  mask-image: radial-gradient(circle 150px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+}
+.honeycomb-wrap[data-active] .honeycomb-glow { opacity: 1; }
+
+/* Ambient botanical sway (transform only) */
+.botanical-sway { transform-origin: 50% 100%; animation: sway 12s ease-in-out infinite alternate; }
+@keyframes sway { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+
+/* Skeleton / image placeholder */
+.skeleton { background: linear-gradient(90deg, #d8c9a0 25%, #ece0c5 50%, #d8c9a0 75%); background-size: 200% 100%; animation: shimmer 1.6s linear infinite; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion [data-reveal]:not([data-revealed]) { opacity: 1; transform: none; }
+  .honeycomb-draw path { stroke-dashoffset: 0; animation: none; }
+  .botanical-sway, .skeleton { animation: none; }
+}

@@ -13,7 +13,10 @@ export function Hexagon({ className = "", src = placeholderImg }: { className?: 
       <img
         src={src? src : placeholderImg}
         alt="Madu Elvara — foto produk placeholder"
-        className="w-full h-full object-cover"
+        width={400}
+        height={346}
+        decoding="async"
+        className="w-full h-full object-cover bg-cream-dark"
       />
     </div>
   );
