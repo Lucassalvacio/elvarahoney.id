@@ -168,9 +168,49 @@ export function ReadingProgress({
  * Decorative looping honeycomb. Uses the site's hexagon tile (56x100 tile, same path), full-bleed behind content.
  * Each cell draws, holds, then fades out on a diagonal stagger, forever.
  */
-const HEX_PATH = "M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z";
-const COLS = 14;
-const ROWS = 8;
+const VB = 800;
+const R = 32; // hexagon radius
+const HEX_W = Math.sqrt(3) * R;
+
+// Regular hexagon (pointy-top) centred on the origin.
+const HEX_PATH =
+  "M" +
+  [0, 1, 2, 3, 4, 5]
+    .map((k) => {
+      const a = (Math.PI / 3) * k - Math.PI / 2;
+      return `${(R * Math.cos(a)).toFixed(2)} ${(R * Math.sin(a)).toFixed(2)}`;
+    })
+    .join("L") +
+  "Z";
+
+// Three honeycomb "domains": each is a properly tessellated grid, rotated
+// differently, so the comb runs in different directions across the hero.
+const DOMAINS = [
+  { angle: 0, points: "0,0 460,0 300,800 0,800" },
+  { angle: 20, points: "460,0 800,0 800,430 560,430 300,800" },
+  { angle: -15, points: "800,430 800,800 300,800 560,430" },
+];
+
+function domainCells(angle: number) {
+  const cells: { x: number; y: number }[] = [];
+  const span = VB * 0.85; // enough margin to cover the area after rotation
+  const rowH = 1.5 * R;
+  for (let r = -Math.ceil(span / rowH); r <= Math.ceil((VB + span) / rowH); r++) {
+    const off = r % 2 ? HEX_W / 2 : 0;
+    for (let x = -span + off; x <= VB + span; x += HEX_W) {
+      const rad = (angle * Math.PI) / 180;
+      const dx = x - VB / 2;
+      const dy = r * rowH - VB / 2;
+      const rx = VB / 2 + dx * Math.cos(rad) - dy * Math.sin(rad);
+      const ry = VB / 2 + dx * Math.sin(rad) + dy * Math.cos(rad);
+      if (rx > -R && rx < VB + R && ry > -R && ry < VB + R)
+        cells.push({ x: x, y: r * rowH });
+    }
+  }
+  return cells;
+}
+
+const DOMAIN_CELLS = DOMAINS.map((d) => domainCells(d.angle));
 
 export function HoneycombDraw({ className = "" }: { className?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -206,39 +246,49 @@ export function HoneycombDraw({ className = "" }: { className?: string }) {
     };
   }, []);
 
-  const build = (highlight: boolean) => {
-    const cells = [];
-    for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        const gold = (r + c) % 4 === 0;
-        cells.push(
-          <path
-            key={`${r}-${c}`}
-            d={HEX_PATH}
-            transform={`translate(${c * 56} ${r * 100})`}
-            pathLength={1}
-            style={
-              highlight
-                ? undefined
-                : { animationDelay: `${((r + c) * 0.35).toFixed(2)}s` }
-            }
-            stroke={gold ? "#D9A441" : "#592A0D"}
-            strokeOpacity={highlight ? (gold ? 0.9 : 0.5) : gold ? 0.4 : 0.2}
-            strokeWidth={highlight ? 1.5 : 1}
-          />
-        );
-      }
-    }
-    return cells;
-  };
+  const build = (highlight: boolean) =>
+    DOMAINS.map((d, di) => {
+      const clipId = `hc-clip-${highlight ? "g" : "b"}-${di}`;
+      return (
+        <g key={di}>
+          <clipPath id={clipId}>
+            <polygon points={d.points} />
+          </clipPath>
+          <g clipPath={`url(#${clipId})`}>
+            <g transform={`rotate(${d.angle} ${VB / 2} ${VB / 2})`}>
+              {DOMAIN_CELLS[di].map((c, i) => {
+                const gold = i % 4 === 0;
+                return (
+                  <path
+                    key={i}
+                    d={HEX_PATH}
+                    transform={`translate(${c.x.toFixed(1)} ${c.y.toFixed(1)})`}
+                    pathLength={1}
+                    style={
+                      highlight
+                        ? undefined
+                        : {
+                            animationDelay: `${(((c.x + c.y + VB) / 120) % 9).toFixed(2)}s`,
+                          }
+                    }
+                    stroke={gold ? "#D9A441" : "#592A0D"}
+                    strokeOpacity={highlight ? (gold ? 0.9 : 0.5) : gold ? 0.3 : 0.15}
+                    strokeWidth={highlight ? 1.5 : 0.8}
+                  />
+                );
+              })}
+            </g>
+          </g>
+        </g>
+      );
+    });
 
   const svgProps = {
     "aria-hidden": true,
     focusable: false,
-    viewBox: `0 0 ${COLS * 56} ${ROWS * 100}`,
+    viewBox: `0 0 ${VB} ${VB}`,
     preserveAspectRatio: "xMidYMid slice",
     fill: "none",
-    className: "absolute inset-0 h-full w-full",
   } as const;
 
   return (
