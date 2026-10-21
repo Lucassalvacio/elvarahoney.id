@@ -43,7 +43,7 @@ export function Hero() {
 
         <div className="relative mx-auto w-64 h-64 md:w-96 md:h-96">
           <div className="absolute -inset-4 md:-inset-6 border border-brown/25 rounded-full" />
-          <Hexagon className="w-full h-full " />
+          <Hexagon className="w-full h-full " src="/assets/test-bottle.png" />
         </div>
       </div>
     </section>

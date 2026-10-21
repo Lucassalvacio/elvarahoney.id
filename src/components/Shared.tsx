@@ -1,6 +1,6 @@
 import placeholderImg from "../assets/placeholder-product.svg";
 
-export function Hexagon({ className = "" }: { className?: string }) {
+export function Hexagon({ className = "", src = placeholderImg }: { className?: string; src?: string }) {
   return (
     <div
       className={`aspect-[1.1547/1] ${className}`}
@@ -11,7 +11,7 @@ export function Hexagon({ className = "" }: { className?: string }) {
       }}
     >
       <img
-        src={placeholderImg}
+        src={src? src : placeholderImg}
         alt="Madu Elvara — foto produk placeholder"
         className="w-full h-full object-cover"
       />
