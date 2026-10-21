@@ -254,7 +254,6 @@ export function HoneycombDraw({ className = "" }: { className?: string }) {
               d={HEX_PATH}
               transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}
               pathLength={1}
-              vectorEffect="non-scaling-stroke"
               style={
                 highlight
                   ? undefined
