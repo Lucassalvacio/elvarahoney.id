@@ -186,7 +186,7 @@ const HEX_PATH =
 // One tiled hex grid (no rotation or scaling). Only some cells are drawn:
 // each starting point grows a small comb along the grid with a seeded random
 // walk, so the layout is varied but identical on every render.
-const GRID_COLS = 15;
+const GRID_COLS = 14;
 const GRID_ROWS = 17;
 
 // [row, col, number of cells] — clusters are kept apart and spread around the edges.
@@ -196,11 +196,11 @@ const STARTS: [number, number, number][] = [
   [11, 1, 7],
   [15, 3, 6],
   [0, 8, 6],
-  [1, 12, 10],
-  [6, 13, 7],
+  [1, 11, 10],
+  [6, 12, 7],
   [10, 11, 8],
   [14, 9, 7],
-  [16, 14, 5],
+  [16, 12, 5],
   [8, 6, 4],
 ];
 
