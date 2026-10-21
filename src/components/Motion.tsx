@@ -183,33 +183,72 @@ const HEX_PATH =
     .join("L") +
   "Z";
 
-// Cell layout of a comb fragment, as [row, column] in hexagon-width units
-// (odd rows are shifted half a cell). Loosely meanders like a natural comb.
-const CLUSTER: [number, number][] = [
-  [0, 0.5], [0, 1.5],
-  [1, 0], [1, 1], [1, 2], [1, 3],
-  [2, 2.5], [2, 3.5], [2, 4.5],
-  [3, 3],
-];
-const CLUSTER_W = 5.5 * HEX_W;
-const CLUSTER_H = 3 * 1.5 * R + 2 * R;
+// One tiled hex grid (no rotation or scaling). Only some cells are drawn:
+// each starting point grows a small comb along the grid with a seeded random
+// walk, so the layout is varied but identical on every render.
+const GRID_COLS = 15;
+const GRID_ROWS = 17;
 
-// Where the fragments sit (centre, rotation, scale) — empty space between them.
-const FRAGMENTS = [
-  { cx: 170, cy: 150, angle: -12, scale: 1.15 },
-  { cx: 620, cy: 90, angle: 18, scale: 0.8 },
-  { cx: 690, cy: 420, angle: -25, scale: 1.1 },
-  { cx: 330, cy: 470, angle: 8, scale: 0.9 },
-  { cx: 120, cy: 700, angle: 30, scale: 0.85 },
-  { cx: 60, cy: 330, angle: 22, scale: 0.9 },
-  { cx: 280, cy: 40, angle: -30, scale: 0.8 },
-  { cx: 40, cy: 520, angle: -18, scale: 0.75 },
-  { cx: 450, cy: 220, angle: 35, scale: 0.7 },
-  { cx: 760, cy: 230, angle: 10, scale: 0.85 },
-  { cx: 450, cy: 30, angle: 15, scale: 0.85 },
-  { cx: 790, cy: 40, angle: -20, scale: 0.9 },
-  { cx: 560, cy: 720, angle: -8, scale: 1 },
+// [row, col, number of cells] — clusters are kept apart and spread around the edges.
+const STARTS: [number, number, number][] = [
+  [1, 1, 9],
+  [6, 0, 8],
+  [11, 1, 7],
+  [15, 3, 6],
+  [0, 8, 6],
+  [1, 12, 10],
+  [6, 13, 7],
+  [10, 11, 8],
+  [14, 9, 7],
+  [16, 14, 5],
+  [8, 6, 4],
 ];
+
+function neighbours(r: number, c: number): [number, number][] {
+  return r % 2
+    ? [[r, c - 1], [r, c + 1], [r - 1, c], [r - 1, c + 1], [r + 1, c], [r + 1, c + 1]]
+    : [[r, c - 1], [r, c + 1], [r - 1, c - 1], [r - 1, c], [r + 1, c - 1], [r + 1, c]];
+}
+
+function buildCombCells(): { x: number; y: number; group: number }[] {
+  let seed = 7;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    return seed / 4294967296;
+  };
+  const taken = new Set<string>();
+  const out: { x: number; y: number; group: number }[] = [];
+  const inGrid = (r: number, c: number) =>
+    r >= 0 && r < GRID_ROWS && c >= 0 && c < GRID_COLS;
+
+  STARTS.forEach(([sr, sc, size], group) => {
+    const cluster: [number, number][] = [[sr, sc]];
+    taken.add(`${sr},${sc}`);
+    while (cluster.length < size) {
+      const [r, c] = cluster[Math.floor(rand() * cluster.length)];
+      const options = neighbours(r, c).filter(
+        ([nr, nc]) => inGrid(nr, nc) && !taken.has(`${nr},${nc}`)
+      );
+      if (!options.length) {
+        if (cluster.every(([cr, cc]) => !neighbours(cr, cc).some(([nr, nc]) => inGrid(nr, nc) && !taken.has(`${nr},${nc}`)))) break;
+        continue;
+      }
+      const [nr, nc] = options[Math.floor(rand() * options.length)];
+      taken.add(`${nr},${nc}`);
+      cluster.push([nr, nc]);
+    }
+    cluster.forEach(([r, c]) =>
+      out.push({
+        x: c * HEX_W + (r % 2 ? HEX_W : HEX_W / 2),
+        y: r * 1.5 * R + R,
+        group,
+      })
+    );
+  });
+  return out;
+}
+
+const COMB_CELLS = buildCombCells();
 
 export function HoneycombDraw({ className = "" }: { className?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -246,34 +285,25 @@ export function HoneycombDraw({ className = "" }: { className?: string }) {
   }, []);
 
   const build = (highlight: boolean) =>
-    FRAGMENTS.map((f, fi) => (
-      <g
-        key={fi}
-        transform={`translate(${f.cx} ${f.cy}) rotate(${f.angle}) scale(${f.scale}) translate(${-CLUSTER_W / 2} ${-CLUSTER_H / 2})`}
-      >
-        {CLUSTER.map(([row, col], i) => {
-          const gold = (i + fi) % 4 === 0;
-          const x = col * HEX_W + HEX_W / 2;
-          const y = row * 1.5 * R + R;
-          return (
-            <path
-              key={i}
-              d={HEX_PATH}
-              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}
-              pathLength={1}
-              style={
-                highlight
-                  ? undefined
-                  : { animationDelay: `${((fi * 1.3 + i * 0.4) % 9).toFixed(2)}s` }
-              }
-              stroke={gold ? "#D9A441" : "#592A0D"}
-              strokeOpacity={highlight ? (gold ? 0.7 : 0.4) : gold ? 0.3 : 0.15}
-              strokeWidth={highlight ? 1.5 : 0.8}
-            />
-          );
-        })}
-      </g>
-    ));
+    COMB_CELLS.map((cell, i) => {
+      const gold = i % 4 === 0;
+      return (
+        <path
+          key={i}
+          d={HEX_PATH}
+          transform={`translate(${cell.x.toFixed(1)} ${cell.y.toFixed(1)})`}
+          pathLength={1}
+          style={
+            highlight
+              ? undefined
+              : { animationDelay: `${((cell.group * 1.3 + i * 0.25) % 9).toFixed(2)}s` }
+          }
+          stroke={gold ? "#D9A441" : "#592A0D"}
+          strokeOpacity={highlight ? (gold ? 0.7 : 0.4) : gold ? 0.3 : 0.15}
+          strokeWidth={highlight ? 1.5 : 0.8}
+        />
+      );
+    });
 
   const svgProps = {
     "aria-hidden": true,
