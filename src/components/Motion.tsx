@@ -183,34 +183,26 @@ const HEX_PATH =
     .join("L") +
   "Z";
 
-// Three honeycomb "domains": each is a properly tessellated grid, rotated
-// differently, so the comb runs in different directions across the hero.
-const DOMAINS = [
-  { angle: 0, points: "0,0 460,0 300,800 0,800" },
-  { angle: 20, points: "460,0 800,0 800,430 560,430 300,800" },
-  { angle: -15, points: "800,430 800,800 300,800 560,430" },
+// Cell layout of a comb fragment, as [row, column] in hexagon-width units
+// (odd rows are shifted half a cell). Loosely meanders like a natural comb.
+const CLUSTER: [number, number][] = [
+  [0, 0.5], [0, 1.5],
+  [1, 0], [1, 1], [1, 2], [1, 3],
+  [2, 2.5], [2, 3.5], [2, 4.5],
+  [3, 3],
 ];
+const CLUSTER_W = 5.5 * HEX_W;
+const CLUSTER_H = 3 * 1.5 * R + 2 * R;
 
-function domainCells(angle: number) {
-  const cells: { x: number; y: number }[] = [];
-  const span = VB * 0.85; // enough margin to cover the area after rotation
-  const rowH = 1.5 * R;
-  for (let r = -Math.ceil(span / rowH); r <= Math.ceil((VB + span) / rowH); r++) {
-    const off = r % 2 ? HEX_W / 2 : 0;
-    for (let x = -span + off; x <= VB + span; x += HEX_W) {
-      const rad = (angle * Math.PI) / 180;
-      const dx = x - VB / 2;
-      const dy = r * rowH - VB / 2;
-      const rx = VB / 2 + dx * Math.cos(rad) - dy * Math.sin(rad);
-      const ry = VB / 2 + dx * Math.sin(rad) + dy * Math.cos(rad);
-      if (rx > -R && rx < VB + R && ry > -R && ry < VB + R)
-        cells.push({ x: x, y: r * rowH });
-    }
-  }
-  return cells;
-}
-
-const DOMAIN_CELLS = DOMAINS.map((d) => domainCells(d.angle));
+// Where the fragments sit (centre, rotation, scale) — empty space between them.
+const FRAGMENTS = [
+  { cx: 170, cy: 150, angle: -12, scale: 1.15 },
+  { cx: 620, cy: 90, angle: 18, scale: 0.8 },
+  { cx: 690, cy: 420, angle: -25, scale: 1.1 },
+  { cx: 330, cy: 470, angle: 8, scale: 0.9 },
+  { cx: 120, cy: 700, angle: 30, scale: 0.85 },
+  { cx: 560, cy: 720, angle: -8, scale: 1 },
+];
 
 export function HoneycombDraw({ className = "" }: { className?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -247,41 +239,35 @@ export function HoneycombDraw({ className = "" }: { className?: string }) {
   }, []);
 
   const build = (highlight: boolean) =>
-    DOMAINS.map((d, di) => {
-      const clipId = `hc-clip-${highlight ? "g" : "b"}-${di}`;
-      return (
-        <g key={di}>
-          <clipPath id={clipId}>
-            <polygon points={d.points} />
-          </clipPath>
-          <g clipPath={`url(#${clipId})`}>
-            <g transform={`rotate(${d.angle} ${VB / 2} ${VB / 2})`}>
-              {DOMAIN_CELLS[di].map((c, i) => {
-                const gold = i % 4 === 0;
-                return (
-                  <path
-                    key={i}
-                    d={HEX_PATH}
-                    transform={`translate(${c.x.toFixed(1)} ${c.y.toFixed(1)})`}
-                    pathLength={1}
-                    style={
-                      highlight
-                        ? undefined
-                        : {
-                            animationDelay: `${(((c.x + c.y + VB) / 120) % 9).toFixed(2)}s`,
-                          }
-                    }
-                    stroke={gold ? "#D9A441" : "#592A0D"}
-                    strokeOpacity={highlight ? (gold ? 0.9 : 0.5) : gold ? 0.3 : 0.15}
-                    strokeWidth={highlight ? 1.5 : 0.8}
-                  />
-                );
-              })}
-            </g>
-          </g>
-        </g>
-      );
-    });
+    FRAGMENTS.map((f, fi) => (
+      <g
+        key={fi}
+        transform={`translate(${f.cx} ${f.cy}) rotate(${f.angle}) scale(${f.scale}) translate(${-CLUSTER_W / 2} ${-CLUSTER_H / 2})`}
+      >
+        {CLUSTER.map(([row, col], i) => {
+          const gold = (i + fi) % 4 === 0;
+          const x = col * HEX_W + HEX_W / 2;
+          const y = row * 1.5 * R + R;
+          return (
+            <path
+              key={i}
+              d={HEX_PATH}
+              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}
+              pathLength={1}
+              vectorEffect="non-scaling-stroke"
+              style={
+                highlight
+                  ? undefined
+                  : { animationDelay: `${((fi * 1.3 + i * 0.4) % 9).toFixed(2)}s` }
+              }
+              stroke={gold ? "#D9A441" : "#592A0D"}
+              strokeOpacity={highlight ? (gold ? 0.9 : 0.5) : gold ? 0.3 : 0.15}
+              strokeWidth={highlight ? 1.5 : 0.8}
+            />
+          );
+        })}
+      </g>
+    ));
 
   const svgProps = {
     "aria-hidden": true,
